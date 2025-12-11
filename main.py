@@ -34,6 +34,7 @@ def obtener_gps():
     except:
         return "", ""
 
+#asdasd
 
 class EncuestaApp:
     def __init__(self, page: ft.Page):

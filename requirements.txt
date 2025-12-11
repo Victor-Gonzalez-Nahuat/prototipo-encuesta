@@ -4,3 +4,4 @@ pymysql
 uvicorn
 python-dotenv
 requests
+flet
