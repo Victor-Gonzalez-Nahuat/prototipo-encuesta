@@ -4,4 +4,4 @@ pymysql
 uvicorn
 python-dotenv
 requests
-flet
+flet==0.27.6
