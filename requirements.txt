@@ -1,0 +1,6 @@
+reportlab
+fastapi
+pymysql
+uvicorn
+python-dotenv
+requests
