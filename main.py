@@ -47,6 +47,8 @@ class EncuestaApp:
             color_scheme_seed=ft.Colors.BLUE_700,
         )
 
+        self.persona_desconocida = False
+
         self.secciones = [
             self.datos_generales,
             self.basura,
@@ -147,6 +149,11 @@ class EncuestaApp:
             self.seccion -= 1
             self.mostrar_seccion()
 
+    def setDesconocido(self, e):
+        self.persona_desconocida = True
+        self.tx_nombre.value = "No presente"
+        self.tx_nombre.disabled = True  # opcional
+        self.page.update()
 
     def _crear_tarjeta_seccion(self, titulo, icon, campos):
         return ft.Card(
@@ -170,17 +177,18 @@ class EncuestaApp:
 
 
     def datos_generales(self):
-        self.tx_nombre = ft.TextField(label="Nombre", icon=ft.Icons.PERSON, value=self.data.get("nombre", None))
+        self.tx_nombre = ft.TextField(label="Nombre", icon=ft.Icons.PERSON, value=self.data.get("nombre" if not self.persona_desconocida else "No presente", None), expand=2)
         self.tx_direccion = ft.TextField(label="Dirección", icon=ft.Icons.HOME_WORK,
                                          value=self.data.get("direccion", None))
         self.tx_colonia = ft.TextField(label="Colonia", icon=ft.Icons.LOCATION_CITY,
                                        value=self.data.get("colonia", None))
         self.tx_telefono = ft.TextField(label="Teléfono", icon=ft.Icons.PHONE, value=self.data.get("telefono", None))
 
+        self.btn_desconocido = ft.TextButton(text="No presente", icon=ft.Icons.NO_ACCOUNTS, on_click=self.setDesconocido, expand=1)
         campos = [
             ft.Text(f"Folio de Encuesta: {self.folio}",
                     style=ft.TextStyle(weight=ft.FontWeight.BOLD, color=ft.Colors.INDIGO_400)),
-            self.tx_nombre,
+            ft.Row([self.tx_nombre, self.btn_desconocido]),
             self.tx_direccion,
             self.tx_colonia,
             self.tx_telefono,
@@ -272,7 +280,7 @@ class EncuestaApp:
                 self.tx_obs_const,
 
 
-            ])]),
+            ])], alignment=ft.MainAxisAlignment.CENTER),
 
         ]
 
